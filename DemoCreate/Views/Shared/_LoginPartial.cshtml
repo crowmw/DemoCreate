@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+
+        <ul class="nav nav-pills nav-stacked navbar-nav">
+
+            <li class="dropdown">
+                    @{var usrid = User.Identity.GetUserId();
+                    Repository.Models.DCContext db = new Repository.Models.DCContext();
+                    var avatarUrl = db.User.Single(w => w.Id == usrid).AvatarPath;}
+                    <a class="dropdown-toggle navbar-inverse navbar-nav" data-toggle="dropdown" href="#">@User.Identity.GetUserName()</a>
+                <img src="@avatarUrl" class="img-circle img" />
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Ustawienia", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+                    <li class="divider" />
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                </ul>
+            </li>
+        </ul>
+    }
+}
+else
+{
+    using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = Request.Url.AbsoluteUri }))
+    {
+        @Html.AntiForgeryToken();
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                    <button type="submit" class="navbar-btn btn btn-primary btn-social btn-facebook" id="Facebook" name="provider" value="Facebook">
+                        <i class="fa fa-facebook"></i> Zaloguj z Facebook
+                    </button>
+            </li>
+        </ul>
+    }
+}
+

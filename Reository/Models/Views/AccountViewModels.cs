@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Reository.Models;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Repository.Models.Views
 {
@@ -14,6 +18,14 @@ namespace Repository.Models.Views
 
         [Display(Name ="AvatarPath")]
         public string AvatarPath { get; set; }
+
+        [Display(Name = "Płeć")]
+        public List<Gender> Gender { get; set; }
+        public string SelectedGender { get; set; }
+
+        [Display(Name ="Województwo")]
+        public List<Provinces> Province { get; set; }
+        public int SelectedProvince { get; set; }
     }
 
     public class ExternalLoginListViewModel
@@ -83,7 +95,7 @@ namespace Repository.Models.Views
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -102,7 +114,7 @@ namespace Repository.Models.Views
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

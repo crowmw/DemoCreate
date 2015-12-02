@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Reository.Models;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Repository.Models
@@ -7,17 +9,21 @@ namespace Repository.Models
     {
         public Vote()
         {
-            Vote_User = new HashSet<Vote_User>();
+            VotedUsers = new HashSet<Choose>();
         }
 
         [Display(Name = "VoteId: ")]
-        public int VoteId { get; set; }
+        [Required]
+        public Guid VoteId { get; set; }
 
-        public string VoteImagePath { get; set; }
+        public string Image { get; set; }
 
         [Display(Name = "Title: ")]
+        [Required]
         public string VoteTitle { get; set; }
+        public Guid? QuestionnaireId { get; set; }
+        public virtual Questionnaire Questionnaire { get; set; }
 
-        public ICollection<Vote_User> Vote_User { get; set; }
+        public virtual ICollection<Choose> VotedUsers { get; set; }
     }
 }

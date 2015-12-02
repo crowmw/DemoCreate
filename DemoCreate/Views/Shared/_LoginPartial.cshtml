@@ -1,13 +1,16 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
+
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
 
-
         <ul class="nav nav-pills nav-stacked navbar-nav">
-
+            <li>
+                @Html.ActionLink("+ Dodaj", "Create", "Questionnaire")
+            </li>
+            
             <li class="dropdown">
                     @{var usrid = User.Identity.GetUserId();
                     Repository.Models.DCContext db = new Repository.Models.DCContext();

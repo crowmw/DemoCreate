@@ -64,8 +64,10 @@ C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoC
 C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoCreate\obj\Debug\DemoCreate.csprojResolveAssemblyReference.cache
 C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoCreate\obj\Debug\DemoCreate.dll
 C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoCreate\obj\Debug\DemoCreate.pdb
-C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoCreate\bin\Reository.dll
-C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoCreate\bin\Reository.pdb
 C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoCreate\bin\Antlr3.Runtime.dll
 C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoCreate\bin\Newtonsoft.Json.dll
 C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoCreate\bin\WebGrease.dll
+C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoCreate\bin\Facebook.dll
+C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoCreate\bin\Facebook.xml
+C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoCreate\bin\Repository.dll
+C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoCreate\bin\Repository.pdb

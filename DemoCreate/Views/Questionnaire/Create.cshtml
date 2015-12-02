@@ -1,56 +1,85 @@
 ﻿@model Repository.Models.Questionnaire
-
+@Scripts.Render("~/bundles/jqueryform")
+@Scripts.Render("~/bundles/jcrop")
+@Scripts.Render("~/bundles/uploadImage")
+@Styles.Render("~/Content/jcrop")
+@Styles.Render("~/Content/uploadImage")
 @{
     ViewBag.Title = "Create";
 }
-
-<h2>Nowa ankieta</h2>
-
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Vote1.VoteTitle, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @{ Html.RenderPartial("_Upload"); }
-                @Html.EditorFor(model => model.Vote1.VoteTitle, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Vote1.VoteTitle, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div id="QuestionnaireTitle" class="panel-heading text-center">
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "input-block-level", @id = "QuestionnaireTitleTextBox", @placeholder = "Tytuł ankiety" } })
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <div class="thumbnail">
+                                <div id="croppingImage1">
+                                    <div>
+                                        <img id="VoteImage1" src="~/Content/images/400x400placeholder.gif" class="img-responsive" />
+                                        <input id="inputVoteImage1" type="file" name="files" onchange=" previewImage(1) " />
+                                    </div>
+                                    <div id="preview-pane1" class="hidden">
+                                        <div id="previewContainer1" class="preview-container">
+                                            <img id="preview1" src="" class="jcrop-preview" />
+                                        </div>
+                                    </div>
+                                    <button id="confirmImageBtn1" onclick=" saveAvatar(1) " class="btn btn-default hidden"><span class="glyphicon glyphicon-ok-circle"></span></button>
+                                </div>
+                                <div id="voteImageResultArea1" class="hidden">
+                                    <img id="VoteImageResult1" src="" class="img-responsive" />
+                                </div>
+                                <div class="caption text-center">
+                                    <div>
+                                        @Html.EditorFor(model => model.Vote1.VoteTitle, new { htmlAttributes = new { @class = "input-block-level", @id = "Vote1TitleTextBox", @placeholder = "Tytuł opcji" } })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="thumbnail">
+                                <div id="croppingImage2">
+                                    <div>
+                                        <img id="VoteImage2" src="~/Content/images/400x400placeholder.gif" class="img-responsive" />
+                                        <input id="inputVoteImage2" type="file" name="files" onchange=" previewImage(2) " />
+                                    </div>
+                                    <div id="preview-pane2" class="hidden">
+                                        <div id="previewContainer2" class="preview-container">
+                                            <img id="preview2" src="" class="jcrop-preview" />
+                                        </div>
+                                    </div>
+                                    <button id="confirmImageBtn2" onclick=" saveAvatar(2) " class="btn btn-default hidden"><span class="glyphicon glyphicon-ok-circle"></span></button>
+                                </div>
+                                <div id="voteImageResultArea2" class="hidden">
+                                    <img id="VoteImageResult2" src="" class="img-responsive" />
+                                </div>
+                                <div class="caption text-center">
+                                    <div>
+                                        @Html.EditorFor(model => model.Vote2.VoteTitle, new { htmlAttributes = new { @class = "input-block-level", @id = "Vote2TitleTextBox", @placeholder = "Tytuł opcji" } })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            @*<div class="col-sm-2 col-md-6">*@
+                            <input type="submit" value="+ Dodaj" class="btn btn-success btn-block" />
+                            @*</div>*@
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Vote2.VoteTitle, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Vote2.VoteTitle, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Vote2.VoteTitle, "", new { @class = "text-danger" })
-            </div>
-            @*@{ Html.RenderPartial("_Upload"); }*@
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="+ Dodaj" class="btn btn-default" />
-            </div>
-        </div>
+        <div class="col-lg-2"></div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

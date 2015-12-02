@@ -7,6 +7,12 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Repository.Models;
 using Repository.Models.Views;
+using System.Security.Claims;
+using Reository.Models.DAL;
+using System.Collections.Generic;
+using System.Collections;
+using Reository.Models;
+using System;
 
 namespace DemoCreate.Controllers
 {
@@ -320,6 +326,7 @@ namespace DemoCreate.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
+
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
@@ -354,7 +361,12 @@ namespace DemoCreate.Controllers
                         //    avatarPath = "http://graph.facebook.com/" + loginInfo.Login.ProviderKey + "/picture";
                     }
 
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email, AvatarPath = avatarPath });
+                    var provinces = ProvinceDAL.GetProvinces().ToList();
+                    List<Gender> gender = new List<Gender>();
+                    gender.Add(new Gender("female", "Kobieta"));
+                    gender.Add(new Gender("male", "Mężczyzna"));
+
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email, AvatarPath = avatarPath, Province = provinces, Gender = gender});
             }
         }
 
@@ -373,16 +385,18 @@ namespace DemoCreate.Controllers
             if (ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
-                var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                if (info == null)
-                {
-                    return View("ExternalLoginFailure");
-                }
-                var user = new User { UserName = model.UserName, Email = model.Email, AvatarPath = model.AvatarPath};
+                //var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+                var inf1 = await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
+                //if (info == null)
+                //{
+                //    return View("ExternalLoginFailure");
+                //}
+                var user = new User { UserName = model.UserName, Email = model.Email, AvatarPath = model.AvatarPath, Gender = model.SelectedGender, ProvinceId = model.SelectedProvince, RegisterDateTime = DateTime.Now };
+                var i = inf1.Claims.Where(x => x.Value != null);
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                    //result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -445,6 +459,8 @@ namespace DemoCreate.Controllers
                 return HttpContext.GetOwinContext().Authentication;
             }
         }
+
+        public object ProvincesDAL { get; private set; }
 
         private void AddErrors(IdentityResult result)
         {

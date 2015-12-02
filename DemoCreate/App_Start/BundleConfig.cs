@@ -12,6 +12,7 @@ namespace DemoCreate
                         "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
+                        "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
@@ -23,11 +24,24 @@ namespace DemoCreate
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/uploadImage").Include(
+                      "~/Scripts/site.uploadImage.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jcrop").Include(
+                      "~/Scripts/jquery.Jcrop.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryform").Include(
+                       "~/Scripts/jquery.form.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css").Include("~/Content/font-awesome.css", new CssRewriteUrlTransform()));
 
+            bundles.Add(new StyleBundle("~/Content/jcrop").Include(
+                      "~/Content/jquery.Jcrop.css"));
 
+            bundles.Add(new StyleBundle("~/Content/uploadImage").Include(
+                      "~/Content/uploadImage.css"));
         }
     }
 }

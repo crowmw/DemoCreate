@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Reository.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -14,7 +16,7 @@ namespace Repository.Models
     {
         public User()
         {
-            Vote_User = new HashSet<Vote_User>();
+
         }
 
         [DataType(DataType.Date)]
@@ -25,7 +27,16 @@ namespace Repository.Models
         [Display(Name = "AvatarPath")]
         [Required]
         public string AvatarPath { get; set; }
-        public virtual ICollection<Vote_User> Vote_User { get; set; }
+
+        [ForeignKey("Province")]
+        public int ProvinceId { get; set; }
+        public virtual Provinces Province { get; set; }
+
+        public string Gender { get; set; }
+        //public virtual User_Questionnaire User_Questionnaire { get; set; }
+
+        public virtual ICollection<Questionnaire> Questionnaires { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

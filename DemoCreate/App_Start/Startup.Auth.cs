@@ -8,11 +8,16 @@ using Repository.Models;
 using Microsoft.Owin.Security.Google;
 using System.Security.Claims;
 using Microsoft.Owin.Security.Facebook;
+using Newtonsoft.Json.Linq;
+using System.Configuration;
+using System.Threading.Tasks;
 
 namespace DemoCreate
 {
     public partial class Startup
     {
+        const string XmlSchemaString = "http://www.w3.org/2001/XMLSchema#string";
+
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
@@ -64,9 +69,63 @@ namespace DemoCreate
             //facebookAuthenticationOptions.Scope.Add("email");
             //app.UseFacebookAuthentication(facebookAuthenticationOptions);
 
-            app.UseFacebookAuthentication(
-               appId: "1698660540370782",
-               appSecret: "537b8280853f371d3d24372aea76d28d");
+            // Facebook : Create New App
+            // https://developers.facebook.com/apps
+
+            string pub_profil = string.Empty;
+
+                var facebookOptions = new FacebookAuthenticationOptions
+                {
+                    AppId = "1698660540370782",
+                    AppSecret = "537b8280853f371d3d24372aea76d28d",
+                    Provider = new FacebookAuthenticationProvider
+                    {
+                        OnAuthenticated = (context) =>
+                        {
+                            //context.Identity.AddClaim(new Claim("urn:facebook:gender", )
+                            context.Identity.AddClaim(new Claim("urn:facebook:access_token", context.AccessToken, XmlSchemaString, "Facebook"));
+                            context.Identity.AddClaim(new Claim("urn:facebook:public_profile", pub_profil, XmlSchemaString, "Facebook"));
+                            foreach (var x in context.User)
+                            {
+                                var claimType = string.Format("urn:facebook:{0}", x.Key);
+                                string claimValue = x.Value.ToString();
+                                if (!context.Identity.HasClaim(claimType, claimValue))
+                                    context.Identity.AddClaim(new Claim(claimType, claimValue, XmlSchemaString, "Facebook"));
+
+                            }
+                            return Task.FromResult(0);
+                        }
+                    }
+                };
+                facebookOptions.Scope.Add("email");
+                facebookOptions.Scope.Add("public_profile");
+                app.UseFacebookAuthentication(facebookOptions);
+
+            int i = 0;
+            //var facebookOptions = new FacebookAuthenticationOptions();
+            //facebookOptions.AppId = "1698660540370782";
+            //facebookOptions.AppSecret = "537b8280853f371d3d24372aea76d28d";
+            //facebookOptions.Scope.Add("public_profile");
+            //facebookOptions.SignInAsAuthenticationType = Microsoft.Owin.Security.AppBuilderSecurityExtensions.GetDefaultSignInAsAuthenticationType(app);
+
+            //facebookOptions.Provider = new FacebookAuthenticationProvider()
+            //{
+            //    OnAuthenticated = async facebookContext =>
+            //    {
+            //        // Save every additional claim we can find in the user
+            //        foreach (JProperty property in facebookContext.User.Children())
+            //        {
+            //            var claimType = string.Format("urn:facebook:{0}", property.Name);
+            //            string claimValue = (string)property.Value;
+            //            if (!facebookContext.Identity.HasClaim(claimType, claimValue))
+            //                facebookContext.Identity.AddClaim(new Claim(claimType, claimValue,
+            //                      "http://www.w3.org/2001/XMLSchema#string", "External"));
+            //        }
+            //    }
+            //};
+
+            //app.UseFacebookAuthentication(facebookOptions);
+            
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

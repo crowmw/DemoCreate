@@ -1,34 +1,52 @@
 ﻿@model Repository.Models.Questionnaire
 
-@{
-    ViewBag.Title = "Details";
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <div class="panel panel-default">
+                <div id="QuestionnaireTitle" class="panel-heading text-center">
+                    <h3>
+                        @Html.DisplayFor(model => model.Title)
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <div class="thumbnail">
+                                <img id="VoteImage1" src="@Html.DisplayFor(model=>model.Vote1.Image)" class="img-responsive" />
+                                <div class="caption text-center">
+                                    <div>
+                                        <b>
+                                            @Html.DisplayFor(model=>model.Vote1.VoteTitle)
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6">
+                            <div class="thumbnail">
+                                <img id="VoteImage2" src="@Html.DisplayFor(model=>model.Vote2.Image)" class="img-responsive" />
+                                <div class="caption text-center">
+                                    <div>
+                                        <b>
+                                            @Html.DisplayFor(model=>model.Vote2.VoteTitle)
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>Questionnaire</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeOfCreation)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TimeOfCreation)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.QuestionnaireId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

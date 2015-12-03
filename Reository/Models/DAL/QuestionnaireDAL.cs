@@ -45,6 +45,7 @@ namespace Reository.Models.DAL
                 using (DCContext db = new DCContext())
                 {
                    result = db.Questionnaire.Where(x => x.QuestionnaireId != Guid.Empty).ToList();
+                   return result;
                 }
             }
             catch (Exception ex)
@@ -54,7 +55,7 @@ namespace Reository.Models.DAL
             return result;
         }
 
-        public static Questionnaire GetQuestionnaireById(string id)
+        public static Questionnaire GetQuestionnaireById(Guid id)
         {
             Questionnaire result = null;
             try

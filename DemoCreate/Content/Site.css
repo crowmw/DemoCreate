@@ -26,3 +26,9 @@
 #QuestionnaireTitleTextBox {
     width:100%;
 }
+
+#deleteIcon {
+    position: absolute;
+    top:0px;
+    right:0px;
+}

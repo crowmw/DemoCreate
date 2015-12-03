@@ -277,7 +277,6 @@
     <Content Include="Views\Questionnaire\Delete.cshtml" />
     <Content Include="Views\Questionnaire\Details.cshtml" />
     <Content Include="Views\Questionnaire\Edit.cshtml" />
-    <Content Include="Views\Questionnaire\_UploadImage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -14,7 +14,7 @@ namespace Reository.Models.DAL
             var result = false;
             try
             {
-                if(vote != null)
+                if (vote != null)
                 {
                     using (DCContext db = new DCContext())
                     {
@@ -25,11 +25,31 @@ namespace Reository.Models.DAL
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
             }
             return result;
+        }
+
+        public static List<Vote> GetVotesByQuestionnaireId(Guid id)
+        {
+            List<Vote> votes = new List<Vote>();
+            try
+            {
+                if (id != null)
+                {
+                    using (DCContext db = new DCContext())
+                    {
+                        votes = db.Vote.Where(x => x.QuestionnaireId == id).ToList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            return votes;
         }
     }
 }

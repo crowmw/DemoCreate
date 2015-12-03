@@ -103,7 +103,7 @@ function saveAvatar(id) {
     }).done(function (data) {
         if (data.success === true) {
             $('#VoteImageResult' + id).attr('src', "/UploadImages/" + data.fileGuid + ".jpeg");
-            $('#voteImagePath' + id).attr('value', data.fileGuid);
+            $('#voteImagePath' + id).attr('value', "/UploadImages/" + data.fileGuid + ".jpeg");
             $('.jcrop-holder').addClass('hidden');
             $('#voteImageResultArea' + id).removeClass('hidden');
             $('#croppingImage'+id).addClass('hidden');

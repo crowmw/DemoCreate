@@ -1,38 +1,57 @@
 ﻿@model IEnumerable<Repository.Models.Questionnaire>
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimeOfCreation)
-        </th>
-        <th></th>
-    </tr>
-
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TimeOfCreation)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.QuestionnaireId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.QuestionnaireId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.QuestionnaireId })
-        </td>
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8">
+                    <div class="panel panel-default">
+                        <div id="QuestionnaireTitle" class="panel-heading text-center">
+                            <h3>
+                                @Html.ActionLink(item.Title, "Details", new { id = item.QuestionnaireId }, new { @id = "questionnaireTitle"})
+                            </h3>
+
+                        </div>
+                        <div class="panel-body">
+                            <a id="deleteIcon" href="@Url.Action("Delete", "Questionnaire", new {id = item.QuestionnaireId})">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                            <div class="row">
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="thumbnail">
+                                        <img id="VoteImage1" src="@Html.DisplayFor(modelItem=>item.Vote1.Image)" class="img-responsive" style="outline:1px solid gray;" />
+                                        <div class="caption text-center">
+                                            <div>
+                                                <button id="voteBtn1" class="btn btn-success btn-block">
+                                                    <b>
+                                                        @Html.DisplayFor(modelItem => item.Vote1.VoteTitle)
+                                                    </b>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-md-6">
+                                    <div class="thumbnail">
+                                        <img id="VoteImage2" src="@Html.DisplayFor(modelItem=>item.Vote2.Image)" class="img-responsive" style="outline:1px solid gray;" />
+                                        <div class="caption text-center">
+                                            <div>
+                                                <button id="voteBtn2" class="btn btn-danger btn-block">
+                                                    <b>
+                                                        @Html.DisplayFor(modelItem => item.Vote2.VoteTitle)
+                                                    </b>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2"></div>
+            </div>
     </tr>
 }
 

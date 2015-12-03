@@ -95,13 +95,6 @@ namespace DemoCreate.Controllers
             var loggedUser = UserDAL.GetUserByID(User.Identity.GetUserId().ToString());
             questionnaire.TimeOfCreation = DateTime.Now;
             questionnaire.UserId = loggedUser.Id;
-            //var questionnaireGuid = Guid.NewGuid();
-
-            //VoteDAL.Add(questionnaire.Vote1);
-            //VoteDAL.Add(questionnaire.Vote2);
-            //questionnaire.Vote1.Questionnaire = questionnaire;
-            //questionnaire.Vote2.Questionnaire = questionnaire;
-
 
             if (ModelState.IsValid)
             {

@@ -22,6 +22,8 @@ namespace Reository.Models.DAL
                         questionnaire.QuestionnaireId = Guid.NewGuid();
                         questionnaire.Vote1.VoteId = Guid.NewGuid();
                         questionnaire.Vote2.VoteId = Guid.NewGuid();
+                        questionnaire.Vote1.QuestionnaireId = questionnaire.QuestionnaireId;
+                        questionnaire.Vote2.QuestionnaireId = questionnaire.QuestionnaireId;
                         db.Questionnaire.Add(questionnaire);
                         db.SaveChanges();
                         result = true;

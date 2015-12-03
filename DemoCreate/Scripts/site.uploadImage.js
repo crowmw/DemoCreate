@@ -1,44 +1,15 @@
-﻿// ================================================================
-//  Description: Avatar Upload supporting script
-//  License:     MIT - check License.txt file for details
-//  Author:      Codative Corp. (http://www.codative.com/)
-// ================================================================
-var jcrop_api,
+﻿var jcrop_api,
     boundx,
     boundy,
     xsize,
     ysize,
     voteId;
 
-// ToDo - change the size limit of the file. You may need to change web.config if larger files are necessary.
+
 var maxSizeAllowed = 2;     // Upload limit in MB
 var maxSizeInBytes = maxSizeAllowed * 1024 * 1024;
 var keepUploadBox = false;  // ToDo - Remove if you want to keep the upload box
 var keepCropBox = false;    // ToDo - Remove if you want to keep the crop box
-
-//function previewFile(voteId) {
-//    var temppreview = document.querySelector("#crop-image-target");
-//    var prv = $('#crop-image-target');
-//    var file = document.querySelector('input[type=file]').files[0];
-//    var reader = new FileReader();
-
-//    reader.onloadend = function () {
-//        temppreview.src = reader.result;
-//        temppreview.alt = file.name;
-//        $('#avatar-upload-box .upload-file-notice').removeClass('bg-danger');
-//        $('#avatar-upload-box').addClass('hidden');
-//        $('#avatar-crop-box').removeClass('hidden');
-//        var img = $('#crop-image-target');
-
-//        initAvatarCrop(img);
-//    }
-
-//    if (file) {
-//        reader.readAsDataURL(file);
-//    } else {
-//        temppreview.src = "";
-//    }
-//}
 
 function previewImage(id) {
     voteId = id
@@ -132,6 +103,7 @@ function saveAvatar(id) {
     }).done(function (data) {
         if (data.success === true) {
             $('#VoteImageResult' + id).attr('src', "/UploadImages/" + data.fileGuid + ".jpeg");
+            $('#voteImagePath' + id).attr('value', data.fileGuid);
             $('.jcrop-holder').addClass('hidden');
             $('#voteImageResultArea' + id).removeClass('hidden');
             $('#croppingImage'+id).addClass('hidden');

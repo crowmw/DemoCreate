@@ -32,10 +32,11 @@
                                             <img id="preview1" src="" class="jcrop-preview" />
                                         </div>
                                     </div>
-                                    <button id="confirmImageBtn1" onclick=" saveAvatar(1) " class="btn btn-default hidden"><span class="glyphicon glyphicon-ok-circle"></span></button>
+                                    <a id="confirmImageBtn1" onclick=" saveAvatar(1) " class="hidden"><span class="glyphicon glyphicon-ok-circle"></span></a>
                                 </div>
                                 <div id="voteImageResultArea1" class="hidden">
                                     <img id="VoteImageResult1" src="" class="img-responsive" />
+                                    @Html.HiddenFor(model => model.Vote1.Image, new { @id = "voteImagePath1" })
                                 </div>
                                 <div class="caption text-center">
                                     <div>
@@ -56,10 +57,11 @@
                                             <img id="preview2" src="" class="jcrop-preview" />
                                         </div>
                                     </div>
-                                    <button id="confirmImageBtn2" onclick=" saveAvatar(2) " class="btn btn-default hidden"><span class="glyphicon glyphicon-ok-circle"></span></button>
+                                    <a id="confirmImageBtn2" onclick=" saveAvatar(2) " class="hidden"><span class="glyphicon glyphicon-ok-circle"></span></a>
                                 </div>
                                 <div id="voteImageResultArea2" class="hidden">
                                     <img id="VoteImageResult2" src="" class="img-responsive" />
+                                    @Html.HiddenFor(model => model.Vote2.Image, new { @id = "voteImagePath2" })
                                 </div>
                                 <div class="caption text-center">
                                     <div>
@@ -69,9 +71,7 @@
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-12">
-                            @*<div class="col-sm-2 col-md-6">*@
                             <input type="submit" value="+ Dodaj" class="btn btn-success btn-block" />
-                            @*</div>*@
                         </div>
                     </div>
                 </div>

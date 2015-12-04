@@ -13,6 +13,7 @@ using System.Web.Helpers;
 using Reository.Models.DAL;
 using System.Text.RegularExpressions;
 using System.Drawing;
+using Reository.Models;
 
 namespace DemoCreate.Controllers
 {
@@ -33,6 +34,7 @@ namespace DemoCreate.Controllers
         public ActionResult Index()
         {
             IEnumerable<Questionnaire> questionnaire = db.Questionnaire.Where(x => x.QuestionnaireId != Guid.Empty).OrderByDescending(x=>x.TimeOfCreation);
+            ViewBag.CurrentUserId = User.Identity.GetUserId().ToString();
             return View(questionnaire);
         }
 
@@ -48,6 +50,13 @@ namespace DemoCreate.Controllers
             {
                 return HttpNotFound();
             }
+
+            var suma = questionnaire.Vote1.VotedUsers.Count + questionnaire.Vote2.VotedUsers.Count;
+            var vote1 = (decimal)questionnaire.Vote1.VotedUsers.Count / (decimal)suma * 100;
+            var vote2 = (decimal)questionnaire.Vote2.VotedUsers.Count / (decimal)suma * 100;
+
+            ViewBag.Vote1Procentage = questionnaire.Vote1.VotedUsers.Count + " ( "+ decimal.Round(vote1, 1) + "% )";
+            ViewBag.Vote2Procentage = questionnaire.Vote2.VotedUsers.Count + " ( " + decimal.Round(vote2, 1) + "% )";
             return View(questionnaire);
         }
 
@@ -141,16 +150,36 @@ namespace DemoCreate.Controllers
             {
                 return HttpNotFound();
             }
+
+
+            var suma = questionnaire.Vote1.VotedUsers.Count + questionnaire.Vote2.VotedUsers.Count;
+            var vote1 = (decimal)questionnaire.Vote1.VotedUsers.Count / (decimal)suma * 100;
+            var vote2 = (decimal)questionnaire.Vote2.VotedUsers.Count / (decimal)suma * 100;
+
+            ViewBag.Vote1Procentage = questionnaire.Vote1.VotedUsers.Count + " ( " + decimal.Round(vote1, 1) + "% )";
+            ViewBag.Vote2Procentage = questionnaire.Vote2.VotedUsers.Count + " ( " + decimal.Round(vote2, 1) + "% )";
             return View(questionnaire);
         }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
             Questionnaire questionnaire = db.Questionnaire.Find(id);
             Vote vote1 = db.Vote.Find(questionnaire.Vote1Id);
             Vote vote2 = db.Vote.Find(questionnaire.Vote2Id);
+            IEnumerable<Choose> vote1Chooses = db.Choose.Where(x => x.VoteId == vote1.VoteId);
+            IEnumerable<Choose> vote2Chooses = db.Choose.Where(x => x.VoteId == vote2.VoteId);
+            foreach(var vote in vote1Chooses)
+            {
+                db.Choose.Remove(vote);
+            }
+
+            foreach (var vote in vote2Chooses)
+            {
+                db.Choose.Remove(vote);
+            }
+
             db.Vote.Remove(vote1);
             db.Vote.Remove(vote2);
             db.Questionnaire.Remove(questionnaire);
@@ -215,7 +244,37 @@ namespace DemoCreate.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, errorMessage = "Unable to upload file.\nERRORINFO: " + ex.Message });
+                return Json(new { success = false, errorMessage = "Nie udało się wrzucić zdjęcia. \nERRORINFO: " + ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Vote(string id)
+        {
+            try
+            {
+                Guid voteId = Guid.Empty;
+                Guid.TryParse(id, out voteId);
+                var vote = db.Vote.Find(voteId);
+                var loggedUserId = User.Identity.GetUserId().ToString();
+                var loggedUser = db.User.Where(x => x.Id == loggedUserId)
+                                            .FirstOrDefault();
+
+                vote.VotedUsers.Add(new Reository.Models.Choose
+                {
+                    ChooseId = Guid.NewGuid(),
+                    vote = vote,
+                    VoteId = vote.VoteId,
+                    user = loggedUser,
+                    UserId = loggedUserId
+                });
+                db.SaveChanges();
+
+                return Json(new { success = true, voteId = vote.VoteId, questionnaireId = vote.QuestionnaireId });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, errorMessage = "Nie udało się oddać głosu. \nERRORINFO: " + ex.Message });
             }
         }
     }

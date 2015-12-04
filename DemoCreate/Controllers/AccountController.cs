@@ -357,8 +357,6 @@ namespace DemoCreate.Controllers
                         default:
                             avatarPath = "";
                             break;
-                        //case "Google":
-                        //    avatarPath = "http://graph.facebook.com/" + loginInfo.Login.ProviderKey + "/picture";
                     }
 
                     var provinces = ProvinceDAL.GetProvinces().ToList();
@@ -385,18 +383,17 @@ namespace DemoCreate.Controllers
             if (ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
-                //var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                var inf1 = await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
+                var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+                //var inf1 = await AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
                 //if (info == null)
                 //{
                 //    return View("ExternalLoginFailure");
                 //}
-                var user = new User { UserName = model.UserName, Email = model.Email, AvatarPath = model.AvatarPath, Gender = model.SelectedGender, ProvinceId = model.SelectedProvince, RegisterDateTime = DateTime.Now };
-                var i = inf1.Claims.Where(x => x.Value != null);
+                var user = new User { UserName = model.UserName, Email = model.Email, AvatarPath = model.AvatarPath, Gender = "male", ProvinceId = 2, RegisterDateTime = DateTime.Now };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    //result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

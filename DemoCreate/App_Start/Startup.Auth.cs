@@ -41,7 +41,7 @@ namespace DemoCreate
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }
-            });            
+            });
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Enables the application to temporarily store user information when they are verifying the second factor in the two-factor authentication process.
@@ -72,36 +72,38 @@ namespace DemoCreate
             // Facebook : Create New App
             // https://developers.facebook.com/apps
 
-            string pub_profil = string.Empty;
+            //string pub_profil = string.Empty;
 
-                var facebookOptions = new FacebookAuthenticationOptions
-                {
-                    AppId = "1698660540370782",
-                    AppSecret = "537b8280853f371d3d24372aea76d28d",
-                    Provider = new FacebookAuthenticationProvider
-                    {
-                        OnAuthenticated = (context) =>
-                        {
-                            //context.Identity.AddClaim(new Claim("urn:facebook:gender", )
-                            context.Identity.AddClaim(new Claim("urn:facebook:access_token", context.AccessToken, XmlSchemaString, "Facebook"));
-                            context.Identity.AddClaim(new Claim("urn:facebook:public_profile", pub_profil, XmlSchemaString, "Facebook"));
-                            foreach (var x in context.User)
-                            {
-                                var claimType = string.Format("urn:facebook:{0}", x.Key);
-                                string claimValue = x.Value.ToString();
-                                if (!context.Identity.HasClaim(claimType, claimValue))
-                                    context.Identity.AddClaim(new Claim(claimType, claimValue, XmlSchemaString, "Facebook"));
+            //    var facebookOptions = new FacebookAuthenticationOptions
+            //    {
+            //        AppId = "1698660540370782",
+            //        AppSecret = "537b8280853f371d3d24372aea76d28d",
+            //        Provider = new FacebookAuthenticationProvider
+            //        {
+            //            OnAuthenticated = (context) =>
+            //            {
+            //                //context.Identity.AddClaim(new Claim("urn:facebook:gender", )
+            //                context.Identity.AddClaim(new Claim("urn:facebook:access_token", context.AccessToken, XmlSchemaString, "Facebook"));
+            //                context.Identity.AddClaim(new Claim("urn:facebook:public_profile", pub_profil, XmlSchemaString, "Facebook"));
+            //                foreach (var x in context.User)
+            //                {
+            //                    var claimType = string.Format("urn:facebook:{0}", x.Key);
+            //                    string claimValue = x.Value.ToString();
+            //                    if (!context.Identity.HasClaim(claimType, claimValue))
+            //                        context.Identity.AddClaim(new Claim(claimType, claimValue, XmlSchemaString, "Facebook"));
 
-                            }
-                            return Task.FromResult(0);
-                        }
-                    }
-                };
-                facebookOptions.Scope.Add("email");
-                facebookOptions.Scope.Add("public_profile");
-                app.UseFacebookAuthentication(facebookOptions);
+            //                }
+            //                return Task.FromResult(0);
+            //            }
+            //        }
+            //    };
+            //    facebookOptions.Scope.Add("email");
+            //    facebookOptions.Scope.Add("public_profile");
+            //    app.UseFacebookAuthentication(facebookOptions);
 
-            int i = 0;
+            app.UseFacebookAuthentication(
+                appId: "1698660540370782",
+                appSecret: "537b8280853f371d3d24372aea76d28d");
             //var facebookOptions = new FacebookAuthenticationOptions();
             //facebookOptions.AppId = "1698660540370782";
             //facebookOptions.AppSecret = "537b8280853f371d3d24372aea76d28d";
@@ -125,7 +127,7 @@ namespace DemoCreate
             //};
 
             //app.UseFacebookAuthentication(facebookOptions);
-            
+
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

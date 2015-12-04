@@ -24,6 +24,11 @@
                                             @Html.DisplayFor(model=>model.Vote1.VoteTitle)
                                         </b>
                                     </div>
+                                    <div id="resultVote@(Html.DisplayFor(modelItem=>Model.Vote1Id))">
+                                        <p>
+                                            @Html.Raw(ViewBag.Vote1Procentage)
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -35,6 +40,11 @@
                                         <b>
                                             @Html.DisplayFor(model=>model.Vote2.VoteTitle)
                                         </b>
+                                    </div>
+                                    <div id="resultVote@(Html.DisplayFor(modelItem=>Model.Vote2Id))">
+                                        <p>
+                                            @Html.Raw(ViewBag.Vote2Procentage)
+                                        </p>
                                     </div>
                                 </div>
                             </div>

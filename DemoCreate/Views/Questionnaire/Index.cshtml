@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Repository.Models.Questionnaire>
+@Scripts.Render("~/bundles/vote")
 
 @foreach (var item in Model) {
     <tr>
@@ -6,49 +7,118 @@
             <div class="row">
                 <div class="col-lg-2"></div>
                 <div class="col-lg-8">
-                    <div class="panel panel-default">
-                        <div id="QuestionnaireTitle" class="panel-heading text-center">
-                            <h3>
-                                @Html.ActionLink(item.Title, "Details", new { id = item.QuestionnaireId }, new { @id = "questionnaireTitle"})
-                            </h3>
-
-                        </div>
-                        <div class="panel-body">
-                            <a id="deleteIcon" href="@Url.Action("Delete", "Questionnaire", new {id = item.QuestionnaireId})">
-                                <span class="glyphicon glyphicon-remove"></span>
-                            </a>
-                            <div class="row">
-                                <div class="col-sm-6 col-md-6">
-                                    <div class="thumbnail">
-                                        <img id="VoteImage1" src="@Html.DisplayFor(modelItem=>item.Vote1.Image)" class="img-responsive" style="outline:1px solid gray;" />
-                                        <div class="caption text-center">
-                                            <div>
-                                                <button id="voteBtn1" class="btn btn-success btn-block">
-                                                    <b>
-                                                        @Html.DisplayFor(modelItem => item.Vote1.VoteTitle)
-                                                    </b>
-                                                </button>
+                    @if (item.Vote1.VotedUsers.Where(x => x.UserId.ToString() == ViewBag.CurrentUserId).Count() == 0 && item.Vote2.VotedUsers.Where(x => x.UserId.ToString() == ViewBag.CurrentUserId).Count() == 0)
+                    {
+                        <div id="@Html.DisplayFor(modelItem => item.QuestionnaireId)" class="panel panel-default">
+                            <div id="QuestionnaireTitle" class="panel-heading text-center">
+                                <h3>
+                                    @Html.ActionLink(item.Title, "Details", new { id = item.QuestionnaireId }, new { @id = "questionnaireTitle" })
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <a id="deleteIcon" href="@Url.Action("Delete", "Questionnaire", new { id = item.QuestionnaireId })">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="thumbnail">
+                                            <img id="VoteImage1" src="@Html.DisplayFor(modelItem => item.Vote1.Image)" class="img-responsive" style="outline:1px solid gray;" />
+                                            <div class="caption text-center">
+                                                <div>
+                                                    <button id="voteBtn1" class="btn btn-success btn-block" onclick=" vote('@Html.DisplayFor(modelItem => item.Vote1Id)') ">
+                                                        <b>
+                                                            @Html.DisplayFor(modelItem => item.Vote1.VoteTitle)
+                                                        </b>
+                                                    </button>
+                                                    <div id="resultVote@(Html.DisplayFor(modelItem => item.Vote1Id))" class="hidden">
+                                                        <b>
+                                                            @Html.DisplayFor(modelItem => item.Vote1.VoteTitle)
+                                                        </b>
+                                                        <p>
+                                                            @Html.DisplayFor(modelItem => item.Vote1.VotedUsers.Count)
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-6 col-md-6">
-                                    <div class="thumbnail">
-                                        <img id="VoteImage2" src="@Html.DisplayFor(modelItem=>item.Vote2.Image)" class="img-responsive" style="outline:1px solid gray;" />
-                                        <div class="caption text-center">
-                                            <div>
-                                                <button id="voteBtn2" class="btn btn-danger btn-block">
-                                                    <b>
-                                                        @Html.DisplayFor(modelItem => item.Vote2.VoteTitle)
-                                                    </b>
-                                                </button>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="thumbnail">
+                                            <img id="VoteImage2" src="@Html.DisplayFor(modelItem => item.Vote2.Image)" class="img-responsive" style="outline:1px solid gray;" />
+                                            <div class="caption text-center">
+                                                <div>
+                                                    <button id="voteBtn2" class="btn btn-danger btn-block" onclick=" vote('@Html.DisplayFor(modelItem => item.Vote2Id)') ">
+                                                        <b>
+                                                            @Html.DisplayFor(modelItem => item.Vote2.VoteTitle)
+                                                        </b>
+                                                    </button>
+                                                    <div id="resultVote@(Html.DisplayFor(modelItem => item.Vote2Id))" class="hidden">
+                                                        <b>
+                                                            @Html.DisplayFor(modelItem => item.Vote2.VoteTitle)
+                                                        </b>
+                                                        <p>
+                                                            @Html.DisplayFor(modelItem => item.Vote2.VotedUsers.Count)
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <div id="@Html.DisplayFor(modelItem => item.QuestionnaireId)" class="panel panel-default">
+                            <div id="QuestionnaireTitle" class="panel-heading text-center">
+                                <h3>
+                                    @Html.ActionLink(item.Title, "Details", new { id = item.QuestionnaireId }, new { @id = "questionnaireTitle" })
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <a id="deleteIcon" href="@Url.Action("Delete", "Questionnaire", new { id = item.QuestionnaireId })">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </a>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="thumbnail">
+                                            <img id="VoteImage1" src="@Html.DisplayFor(modelItem => item.Vote1.Image)" class="img-responsive" style="outline:1px solid gray;" />
+                                            <div class="caption text-center">
+                                                <div>
+                                                    <div id="resultVote@(Html.DisplayFor(modelItem => item.Vote1Id))">
+                                                        <b>
+                                                            @Html.DisplayFor(modelItem => item.Vote1.VoteTitle)
+                                                        </b>
+                                                        <p>
+                                                            @Html.DisplayFor(modelItem => item.Vote1.VotedUsers.Count)
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6">
+                                        <div class="thumbnail">
+                                            <img id="VoteImage2" src="@Html.DisplayFor(modelItem => item.Vote2.Image)" class="img-responsive" style="outline:1px solid gray;" />
+                                            <div class="caption text-center">
+                                                <div>
+                                                    <div id="resultVote@(Html.DisplayFor(modelItem => item.Vote2Id))">
+                                                        <b>
+                                                            @Html.DisplayFor(modelItem => item.Vote2.VoteTitle)
+                                                        </b>
+                                                        <p>
+                                                            @Html.DisplayFor(modelItem => item.Vote2.VotedUsers.Count)
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
                 </div>
                 <div class="col-lg-2"></div>
             </div>

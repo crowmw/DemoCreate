@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Repository.Models.Questionnaire>
+﻿@model PagedList.IPagedList<Repository.Models.Questionnaire>
+@using PagedList.Mvc;
+
 @Scripts.Render("~/bundles/vote")
 
 @foreach (var item in Model) {
@@ -7,6 +9,14 @@
             <div class="row">
                 <div class="col-lg-2"></div>
                 <div class="col-lg-8">
+                    @{
+                        Repository.Models.DCContext db = new Repository.Models.DCContext();
+                        var suma = item.Vote1.VotedUsers.Count + item.Vote2.VotedUsers.Count;
+                        var vote1 = item.Vote1.VotedUsers.Count;
+                        var vote2 = item.Vote2.VotedUsers.Count;
+                        var vote1Procentage = (decimal)vote1 / (decimal)suma * 100;
+                        var vote2Procentage = (decimal)vote2 / (decimal)suma * 100;
+                    }
                     @if (item.Vote1.VotedUsers.Where(x => x.UserId.ToString() == ViewBag.CurrentUserId).Count() == 0 && item.Vote2.VotedUsers.Where(x => x.UserId.ToString() == ViewBag.CurrentUserId).Count() == 0)
                     {
                         <div id="@Html.DisplayFor(modelItem => item.QuestionnaireId)" class="panel panel-default">
@@ -91,7 +101,7 @@
                                                             @Html.DisplayFor(modelItem => item.Vote1.VoteTitle)
                                                         </b>
                                                         <p>
-                                                            @Html.DisplayFor(modelItem => item.Vote1.VotedUsers.Count)
+                                                            @Html.Raw("" + @vote1 + " ( "+ decimal.Round(vote1Procentage,1) + "% )")
                                                         </p>
                                                     </div>
                                                 </div>
@@ -108,7 +118,7 @@
                                                             @Html.DisplayFor(modelItem => item.Vote2.VoteTitle)
                                                         </b>
                                                         <p>
-                                                            @Html.DisplayFor(modelItem => item.Vote2.VotedUsers.Count)
+                                                            @Html.Raw(""+ @vote2 + " ( "+ decimal.Round(vote2Procentage,1) + "% )")
                                                         </p>
                                                     </div>
                                                 </div>
@@ -124,5 +134,8 @@
             </div>
     </tr>
 }
-
-</table>
+<div class="thumbnail">
+    <div id="pagination" class="text-center">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+    </div>
+</div>

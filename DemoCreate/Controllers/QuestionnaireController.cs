@@ -14,6 +14,7 @@ using Reository.Models.DAL;
 using System.Text.RegularExpressions;
 using System.Drawing;
 using Reository.Models;
+using PagedList;
 
 namespace DemoCreate.Controllers
 {
@@ -31,11 +32,17 @@ namespace DemoCreate.Controllers
 
         private readonly string[] _imageFileExtensions = { ".jpg", ".png", ".gif", ".jpeg" };
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             IEnumerable<Questionnaire> questionnaire = db.Questionnaire.Where(x => x.QuestionnaireId != Guid.Empty).OrderByDescending(x=>x.TimeOfCreation);
-            ViewBag.CurrentUserId = User.Identity.GetUserId().ToString();
-            return View(questionnaire);
+            if(User.Identity.GetUserId() != null)
+            {
+                int pageSize = 2;
+                int pageNumber = (page ?? 1);
+                ViewBag.CurrentUserId = User.Identity.GetUserId().ToString();
+                return View(questionnaire.ToPagedList(pageNumber, pageSize));
+            }
+            return View("../Home/Index", questionnaire);
         }
 
 

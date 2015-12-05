@@ -71,3 +71,7 @@ C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoC
 C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoCreate\bin\Facebook.xml
 C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoCreate\bin\Repository.dll
 C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoCreate\bin\Repository.pdb
+C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoCreate\bin\PagedList.dll
+C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoCreate\bin\PagedList.Mvc.dll
+C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoCreate\bin\PagedList.xml
+C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\DemoCreate\bin\PagedList.Mvc.xml

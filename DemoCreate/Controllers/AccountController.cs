@@ -21,6 +21,7 @@ namespace DemoCreate.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private UserManager _userManager;
+        private DCContext db = new DCContext();
 
         public AccountController()
         {
@@ -359,12 +360,15 @@ namespace DemoCreate.Controllers
                             break;
                     }
 
-                    var provinces = ProvinceDAL.GetProvinces().ToList();
+                    var provinces = db.Provinces.ToList();
+                    var ageRanges = db.AgeRange.ToList();
+                    var education = db.Education.ToList();
+
                     List<Gender> gender = new List<Gender>();
                     gender.Add(new Gender("female", "Kobieta"));
                     gender.Add(new Gender("male", "Mężczyzna"));
 
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email, AvatarPath = avatarPath, Province = provinces, Gender = gender});
+                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email, AvatarPath = avatarPath, Province = provinces, Gender = gender, Education = education, AgeRange = ageRanges});
             }
         }
 
@@ -389,7 +393,7 @@ namespace DemoCreate.Controllers
                 //{
                 //    return View("ExternalLoginFailure");
                 //}
-                var user = new User { UserName = model.UserName, Email = model.Email, AvatarPath = model.AvatarPath, Gender = "male", ProvinceId = 2, RegisterDateTime = DateTime.Now };
+                var user = new User { UserName = model.UserName, Email = model.Email, AvatarPath = model.AvatarPath, Gender = model.SelectedGender, ProvinceId = model.SelectedProvince, RegisterDateTime = DateTime.Now, EducationId = model.SelectedEducation, AgeRangeId = model.SelectedAgeRange };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -397,7 +401,7 @@ namespace DemoCreate.Controllers
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
+                        return RedirectToAction("Index", "Questionnaire");
                     }
                 }
                 AddErrors(result);

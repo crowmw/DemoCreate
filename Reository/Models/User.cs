@@ -32,6 +32,14 @@ namespace Repository.Models
         public int ProvinceId { get; set; }
         public virtual Provinces Province { get; set; }
 
+        [ForeignKey("AgeRange")]
+        public int AgeRangeId { get; set; }
+        public virtual AgeRange AgeRange { get; set; }
+
+        [ForeignKey("Education")]
+        public int EducationId { get; set; }
+        public virtual Education Education { get; set; }
+
         public string Gender { get; set; }
         //public virtual User_Questionnaire User_Questionnaire { get; set; }
 

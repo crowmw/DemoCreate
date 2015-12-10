@@ -1,5 +1,14 @@
 ﻿@model Repository.Models.Questionnaire
 
+<div id="fb-root"></div>
+<script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.5&appId=1698660540370782";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 <div class="alert alert-danger">
     <div class="row">
@@ -26,14 +35,14 @@
                 <div class="row">
                     <div class="col-sm-6 col-md-6">
                         <div class="thumbnail">
-                            <img id="VoteImage1" src="@Html.DisplayFor(model=>model.Vote1.Image)" class="img-responsive" />
+                            <img id="VoteImage1" src="@Html.DisplayFor(model => model.Vote1.Image)" class="img-responsive" />
                             <div class="caption text-center">
                                 <div>
                                     <b>
                                         @Html.DisplayFor(model => model.Vote1.VoteTitle)
                                     </b>
                                 </div>
-                                <div id="resultVote@(Html.DisplayFor(modelItem=>Model.Vote1Id))">
+                                <div id="resultVote@(Html.DisplayFor(modelItem => Model.Vote1Id))">
                                     <p>
                                         @Html.Raw(ViewBag.Vote1Procentage)
                                     </p>
@@ -43,19 +52,24 @@
                     </div>
                     <div class="col-sm-6 col-md-6">
                         <div class="thumbnail">
-                            <img id="VoteImage2" src="@Html.DisplayFor(model=>model.Vote2.Image)" class="img-responsive" />
+                            <img id="VoteImage2" src="@Html.DisplayFor(model => model.Vote2.Image)" class="img-responsive" />
                             <div class="caption text-center">
                                 <div>
                                     <b>
                                         @Html.DisplayFor(model => model.Vote2.VoteTitle)
                                     </b>
                                 </div>
-                                <div id="resultVote@(Html.DisplayFor(modelItem=>Model.Vote2Id))">
+                                <div id="resultVote@(Html.DisplayFor(modelItem => Model.Vote2Id))">
                                     <p>
                                         @Html.Raw(ViewBag.Vote2Procentage)
                                     </p>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="fb-comments" data-width="100%" data-href="@Request.Url.AbsoluteUri" data-numposts="5"></div>
                         </div>
                     </div>
                 </div>

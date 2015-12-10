@@ -1,7 +1,16 @@
 ﻿@model PagedList.IPagedList<Repository.Models.Questionnaire>
 @using PagedList.Mvc;
-
 @Scripts.Render("~/bundles/vote")
+
+<div id="fb-root"></div>
+<script>
+(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.5&appId=1698660540370782";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 @foreach (var item in Model) {
     <tr>
@@ -12,10 +21,17 @@
                     @{
                         Repository.Models.DCContext db = new Repository.Models.DCContext();
                         var suma = item.Vote1.VotedUsers.Count + item.Vote2.VotedUsers.Count;
-                        var vote1 = item.Vote1.VotedUsers.Count;
-                        var vote2 = item.Vote2.VotedUsers.Count;
-                        var vote1Procentage = (decimal)vote1 / (decimal)suma * 100;
-                        var vote2Procentage = (decimal)vote2 / (decimal)suma * 100;
+                        decimal vote1Procentage = 0;
+                        decimal vote2Procentage = 0;
+                        decimal vote1 = 0;
+                        decimal vote2 = 0;
+                        if (suma != 0)
+                        {
+                            vote1 = item.Vote1.VotedUsers.Count;
+                            vote2 = item.Vote2.VotedUsers.Count;
+                            vote1Procentage = (decimal)vote1 / (decimal)suma * 100;
+                            vote2Procentage = (decimal)vote2 / (decimal)suma * 100;
+                        }
                     }
                     @if (item.Vote1.VotedUsers.Where(x => x.UserId.ToString() == ViewBag.CurrentUserId).Count() == 0 && item.Vote2.VotedUsers.Where(x => x.UserId.ToString() == ViewBag.CurrentUserId).Count() == 0)
                     {
@@ -74,6 +90,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div id="likeShareFb" class="text-center">
+                                        <div class="fb-like" data-href="@Request.Url.GetLeftPart(UriPartial.Path)Questionnaire/Details/@item.QuestionnaireId" data-width="100%" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -124,6 +143,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div id="likeShareFb" class="text-center">
+                                        <div class="fb-like" data-href="@Request.Url.GetLeftPart(UriPartial.Path)Questionnaire/Details/@item.QuestionnaireId" data-width="100%" data-layout="button" data-action="like" data-show-faces="true" data-share="true"></div>
                                     </div>
                                 </div>
                             </div>

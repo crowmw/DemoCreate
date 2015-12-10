@@ -25,6 +25,8 @@ namespace Repository.Models
         public DbSet<Questionnaire> Questionnaire { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Provinces> Provinces { get; set; }
+        public  DbSet<AgeRange> AgeRange { get; set; }
+        public DbSet<Education> Education { get; set; }
         public DbSet<Vote> Vote { get; set; }
         public DbSet<Choose> Choose { get; set; }
         public DbSet<User_Questionnaire> User_Questionnaire { get; set; }

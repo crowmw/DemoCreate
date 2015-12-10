@@ -151,13 +151,27 @@
     <Compile Include="Migrations\201511121315239_init.Designer.cs">
       <DependentUpon>201511121315239_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201512071048271_add_age_education.cs" />
+    <Compile Include="Migrations\201512071048271_add_age_education.Designer.cs">
+      <DependentUpon>201512071048271_add_age_education.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512071113325_add_fields_to_user.cs" />
+    <Compile Include="Migrations\201512071113325_add_fields_to_user.Designer.cs">
+      <DependentUpon>201512071113325_add_fields_to_user.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AgeRange.cs" />
+    <Compile Include="Models\ChartModels\AgeVotes.cs" />
+    <Compile Include="Models\ChartModels\EducationVotes.cs" />
+    <Compile Include="Models\ChartModels\GenderVotes.cs" />
+    <Compile Include="Models\ChartModels\ProvinceVotes.cs" />
     <Compile Include="Models\Choose.cs" />
     <Compile Include="Models\DAL\ProvinceDAL.cs" />
     <Compile Include="Models\DAL\QuestionnaireDAL.cs" />
     <Compile Include="Models\DAL\UserDAL.cs" />
     <Compile Include="Models\DAL\VoteDAL.cs" />
     <Compile Include="Models\DCModels.cs" />
+    <Compile Include="Models\Education.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\Provinces.cs" />
     <Compile Include="Models\Questionnaire.cs" />
@@ -170,6 +184,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201511121315239_init.resx">
       <DependentUpon>201511121315239_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512071048271_add_age_education.resx">
+      <DependentUpon>201512071048271_add_age_education.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512071113325_add_fields_to_user.resx">
+      <DependentUpon>201512071113325_add_fields_to_user.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

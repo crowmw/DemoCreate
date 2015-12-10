@@ -43,3 +43,5 @@ C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\Reosi
 C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\Reository\obj\Debug\Repository.pdb
 C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\Reository\obj\Debug\Repository.Migrations.init.resources
 C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\Reository\obj\Debug\Repository.csproj.GenerateResource.Cache
+C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\Reository\obj\Debug\Repository.Migrations.add_age_education.resources
+C:\Users\Mateusz Woźniak\Documents\Visual Studio 2015\Projects\DemoCreate\Reository\obj\Debug\Repository.Migrations.add_fields_to_user.resources

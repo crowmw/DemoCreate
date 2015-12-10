@@ -26,6 +26,12 @@ namespace Repository.Models.Views
         [Display(Name ="Województwo")]
         public List<Provinces> Province { get; set; }
         public int SelectedProvince { get; set; }
+
+        public List<AgeRange> AgeRange { get; set; }
+        public int SelectedAgeRange { get; set; }
+
+        public List<Education> Education { get; set; }
+        public int SelectedEducation { get; set; }
     }
 
     public class ExternalLoginListViewModel

@@ -142,10 +142,11 @@ namespace DemoCreate.Controllers
                 var fileName = Guid.NewGuid().ToString();
                 var serverPath = HttpContext.Server.MapPath(UploadedImagesPath);
                 var filePath = Path.Combine(serverPath, fileName);
+                var img = new WebImage(binData);
 
                 using (var ms = new MemoryStream(binData))
                 {
-                    var img = new WebImage(binData);
+                    
                     var res = (double)img.Height / (double)originHeight;
 
                     var ttop = (int)(res * top);
@@ -156,7 +157,7 @@ namespace DemoCreate.Controllers
                     img.Resize(AvatarStoredWidth, AvatarStoredHeight);
                     img.Save(filePath);
                 }
-                return Json(new { success = true, fileGuid = fileName });
+                return Json(new { success = true, fileName = fileName+"."+img.ImageFormat });
             }
             catch (Exception ex)
             {

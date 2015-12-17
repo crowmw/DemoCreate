@@ -15,12 +15,12 @@
                     @{var usrid = User.Identity.GetUserId();
                     Repository.Models.DCContext db = new Repository.Models.DCContext();
                     var avatarUrl = db.User.Single(w => w.Id == usrid).AvatarPath;}
-                    <a class="dropdown-toggle navbar-inverse navbar-nav" data-toggle="dropdown" href="#">@User.Identity.GetUserName()</a>
+                    <a class="dropdown-toggle navbar-inverse navbar-nav" data-toggle="dropdown" style="margin-top:-2px" href="#">@User.Identity.GetUserName()</a>
                 <img src="@avatarUrl" class="img-circle img" />
                 <ul class="dropdown-menu">
-                    <li>@Html.ActionLink("Ustawienia", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
+                    <li>@Html.ActionLink("Profil", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</li>
                     <li class="divider" />
-                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                    <li><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></li>
                 </ul>
             </li>
         </ul>

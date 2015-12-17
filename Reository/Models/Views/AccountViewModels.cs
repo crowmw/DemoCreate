@@ -23,13 +23,13 @@ namespace Repository.Models.Views
         public List<Gender> Gender { get; set; }
         public string SelectedGender { get; set; }
 
-        [Display(Name ="Województwo")]
+        [Display(Name = "Województwo")]
         public List<Provinces> Province { get; set; }
         public int SelectedProvince { get; set; }
-
+        [Display(Name = "Przedział wiekowy")]
         public List<AgeRange> AgeRange { get; set; }
         public int SelectedAgeRange { get; set; }
-
+        [Display(Name = "Wykształcenie")]
         public List<Education> Education { get; set; }
         public int SelectedEducation { get; set; }
     }

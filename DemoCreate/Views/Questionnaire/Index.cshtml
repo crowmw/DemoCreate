@@ -4,13 +4,13 @@
 
 <div id="fb-root"></div>
 <script>
-(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.5&appId=1698660540370782";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.5&appId=1698660540370782";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
 
 @foreach (var item in Model) {
     <tr>
@@ -42,9 +42,12 @@
                                 </h3>
                             </div>
                             <div class="panel-body">
-                                <a id="deleteIcon" href="@Url.Action("Delete", "Questionnaire", new { id = item.QuestionnaireId })">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </a>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a id="deleteIcon" href="@Url.Action("Delete", "Questionnaire", new { id = item.QuestionnaireId })">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                }
                                 <div class="row">
                                     <div class="col-sm-6 col-md-6">
                                         <div class="thumbnail">
@@ -106,9 +109,12 @@
                                 </h3>
                             </div>
                             <div class="panel-body">
-                                <a id="deleteIcon" href="@Url.Action("Delete", "Questionnaire", new { id = item.QuestionnaireId })">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </a>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a id="deleteIcon" href="@Url.Action("Delete", "Questionnaire", new { id = item.QuestionnaireId })">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                }
                                 <div class="row">
                                     <div class="col-sm-6 col-md-6">
                                         <div class="thumbnail">
@@ -120,7 +126,7 @@
                                                             @Html.DisplayFor(modelItem => item.Vote1.VoteTitle)
                                                         </b>
                                                         <p>
-                                                            @Html.Raw("" + @vote1 + " ( "+ decimal.Round(vote1Procentage,1) + "% )")
+                                                            @Html.Raw("" + @vote1 + " ( " + decimal.Round(vote1Procentage, 1) + "% )")
                                                         </p>
                                                     </div>
                                                 </div>
@@ -137,7 +143,7 @@
                                                             @Html.DisplayFor(modelItem => item.Vote2.VoteTitle)
                                                         </b>
                                                         <p>
-                                                            @Html.Raw(""+ @vote2 + " ( "+ decimal.Round(vote2Procentage,1) + "% )")
+                                                            @Html.Raw("" + @vote2 + " ( " + decimal.Round(vote2Procentage, 1) + "% )")
                                                         </p>
                                                     </div>
                                                 </div>
@@ -155,7 +161,7 @@
                 <div class="col-lg-2"></div>
             </div>
     </tr>
-}
+                        }
 <div class="thumbnail">
     <div id="pagination" class="text-center">
         @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

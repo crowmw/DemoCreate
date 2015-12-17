@@ -2,6 +2,11 @@
 var ageVotesData = null;
 var educationVotesData = null;
 var provincesVotesData = null;
+var options = {
+    'height': 350,
+    'legend': { position: 'none' },
+    'animation': { startup: true, duration: 2000, easing: 'out' }
+}
 
 google.load("visualization", "1.0", {
     packages: ["corechart"]

@@ -6,12 +6,15 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using DemoCreate.Models.Views;
+using Repository.Models;
+using System.Collections.Generic;
 
 namespace DemoCreate.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
+        private DCContext db = new DCContext();
         private ApplicationSignInManager _signInManager;
         private UserManager _userManager;
 
@@ -53,23 +56,20 @@ namespace DemoCreate.Controllers
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-                : "";
-
             var userId = User.Identity.GetUserId();
-            var model = new IndexViewModel
+            var user = db.User.Where(x => x.Id == userId).FirstOrDefault();
+            List<Questionnaire> userQuestionnaires = db.Questionnaire.Where(x => x.User.Id == user.Id).ToList();
+            var model = new UserProfileViewModel
             {
-                HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
-                Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                UserId = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                AvatarPath = user.AvatarPath,
+                Gender = user.Gender,
+                Province = user.Province,
+                AgeRange = user.AgeRange,
+                Education = user.Education,
+                UserQuestionnaires = userQuestionnaires
             };
             return View(model);
         }

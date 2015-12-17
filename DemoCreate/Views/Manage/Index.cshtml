@@ -1,84 +1,83 @@
-﻿@model DemoCreate.Models.Views.IndexViewModel
-@{
-    ViewBag.Title = "Manage";
-}
+﻿@model DemoCreate.Models.Views.UserProfileViewModel
 
-<h2>@ViewBag.Title.</h2>
+<div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+        <div class="panel panel-default">
+            <div class="panel-body text-center">
+                <div>
+                    <img src="@Model.AvatarPath" class="img-circle" style="width:168px;height:168px;" />
+                    @Html.HiddenFor(h => h.AvatarPath)
+                    <h3>@Html.DisplayFor(m => m.UserName, new { @class = "form-control" })</h3>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="col-lg-6 text-right">@Html.LabelFor(m => m.Email, new { @class = "control-label" })</div>
+                        <div class="col-lg-6 text-left">@Html.DisplayFor(m => m.Email, new { @class = "form-control" })</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="col-lg-6 text-right">@Html.LabelFor(m => m.Gender, new { @class = "control-label" })</div>
+                        <div class="col-lg-6 text-left">@Html.DisplayFor(m => m.Gender, new { @class = "form-control" })</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="col-lg-6 text-right">@Html.LabelFor(m => m.Province, new { @class = "control-label" })</div>
+                        <div class="col-lg-6 text-left">@Html.DisplayFor(m => m.Province.ProvinceName, new { @class = "form-control" })</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="col-lg-6 text-right">@Html.LabelFor(m => m.AgeRange, new { @class = "control-label" })</div>
+                        <div class="col-lg-6 text-left">@Html.DisplayFor(m => m.AgeRange.AgeRangeName, new { @class = "form-control" })</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="col-lg-6 text-right">@Html.LabelFor(m => m.Education, new { @class = "control-label" })</div>
+                        <div class="col-lg-6 text-left">@Html.DisplayFor(m => m.Education.EducationName, new { @class = "form-control" })</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<p class="text-success">@ViewBag.StatusMessage</p>
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
-        @*
-            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-             
-             See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-             
-             Uncomment the following block after you have set up two-factor authentication
-        *@
-        @*  
-            <dt>Phone Number:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None") [
-                @if (Model.PhoneNumber != null)
-                {
-                    @Html.ActionLink("Change", "AddPhoneNumber")
-                    @: &nbsp;|&nbsp;
-                    @Html.ActionLink("Remove", "RemovePhoneNumber")
-                }
-                else
-                {
-                    @Html.ActionLink("Add", "AddPhoneNumber")
-                }
-                ]
-            </dd>
-        *@
-        <dt>Two-Factor Authentication:</dt>
-        <dd>
-            <p>
-                There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>
-            @*@if (Model.TwoFactor)
-                {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table">
+                    @foreach (var item in Model.UserQuestionnaires.OrderByDescending(x=>x.TimeOfCreation))
                     {
-                        @Html.AntiForgeryToken()
-                        <text>Enabled
-                        <input type="submit" value="Disable" class="btn btn-link" />
-                        </text>
+                        <tr>
+                            <td>
+                                <div class="questionnaireListMiniature">
+                                    <img src="@Html.DisplayFor(modelItem => item.Vote1.Image)" style="width:60px;height:60px;" />
+                                    <img src="@Html.DisplayFor(modelItem => item.Vote2.Image)" style="width:60px;height:60px;" />
+                                </div>
+                            </td>
+                            <td style="vertical-align:middle">
+                                @Html.DisplayFor(modelItem => item.Title )
+                            </td>
+                            <td style="vertical-align:middle">
+                                @{
+                                    var suma = item.Vote1.VotedUsers.Count() + item.Vote2.VotedUsers.Count();
+                                }
+                                @Html.Raw(@suma.ToString() + " głosów")
+                            </td>
+                            <td style="vertical-align:middle">
+                                @Html.DisplayFor(modelItem => item.TimeOfCreation)
+                            </td>
+                            <td style="vertical-align:middle">
+                                @*<a href="@Url.Action("Edit", "Jobs", new { id = item.QuestionnaireId })"><span class="glyphicon glyphicon-edit" style="color: gray"></span></a>*@
+                                <a href="@Url.Action("Details", "Questionnaire", new { id = item.QuestionnaireId })"><span class="glyphicon glyphicon-info-sign" style="color: lightblue;"></span></a>
+                                <a href="@Url.Action("Delete", "Questionnaire", new { id = item.QuestionnaireId })"><span class="glyphicon glyphicon-remove-sign" style="color: lightcoral"></span></a>
+                            </td>
+                        </tr>
                     }
-                }
-                else
-                {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Disabled
-                        <input type="submit" value="Enable" class="btn btn-link" />
-                        </text>
-                    }
-                }*@
-        </dd>
-    </dl>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2"></div>
+
 </div>

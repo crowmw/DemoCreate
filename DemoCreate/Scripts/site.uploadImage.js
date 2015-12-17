@@ -102,8 +102,8 @@ function saveAvatar(id) {
         }
     }).done(function (data) {
         if (data.success === true) {
-            $('#VoteImageResult' + id).attr('src', "/UploadImages/" + data.fileGuid + ".jpeg");
-            $('#voteImagePath' + id).attr('value', "/UploadImages/" + data.fileGuid + ".jpeg");
+            $('#VoteImageResult' + id).attr('src', "/UploadImages/" + data.fileName);
+            $('#voteImagePath' + id).attr('value', "/UploadImages/" + data.fileName);
             $('.jcrop-holder').addClass('hidden');
             $('#voteImageResultArea' + id).removeClass('hidden');
             $('#croppingImage'+id).addClass('hidden');

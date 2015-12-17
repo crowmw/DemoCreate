@@ -7,55 +7,58 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            <div class="col-md-10">
-                    <img src="@Model.AvatarPath" class="form-group-lg img-circle"/>
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <div class="form-group text-center">
+                    <img src="@Model.AvatarPath" class="img-circle" style="width:168px;height:168px;" />
                     @Html.HiddenFor(h => h.AvatarPath)
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Gender, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.SelectedGender, new SelectList(Model.Gender, "GenderId", "GenderName"), new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Province, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.SelectedProvince, new SelectList(Model.Province.OrderBy(p => p.ProvinceName), "ProvinceId", "ProvinceName"), new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.AgeRange, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.SelectedAgeRange, new SelectList(Model.AgeRange, "AgeRangeId", "AgeRangeName"), new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Education, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.SelectedEducation, new SelectList(Model.Education, "EducationId", "EducationName"), new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                    <input type="submit" class="btn btn-success" style="width:168px;"value="Zarejestruj" />
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Gender, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SelectedGender, new SelectList(Model.Gender, "GenderId", "GenderName"))
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Province, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.SelectedProvince, new SelectList(Model.Province.OrderBy(p=>p.ProvinceName), "ProvinceId", "ProvinceName"))
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.AgeRange, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SelectedAgeRange, new SelectList(Model.AgeRange, "AgeRangeId", "AgeRangeName"))
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Education, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.SelectedEducation, new SelectList(Model.Education, "EducationId", "EducationName"))
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-default" value="Register" />
-            </div>
-        </div>
+        <div class="col-lg-2"></div>
+    </div>
 }
 
 @section Scripts {

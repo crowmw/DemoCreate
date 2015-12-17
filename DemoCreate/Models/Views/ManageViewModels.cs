@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using Repository.Models;
 
 namespace DemoCreate.Models.Views
 {
@@ -12,6 +13,26 @@ namespace DemoCreate.Models.Views
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+    }
+
+    public class UserProfileViewModel
+    {
+        public string UserId { get; set; }
+        [Display(Name = "Nazwa użytkownika")]
+        public string UserName { get; set; }
+        [Display(Name = "Adres email")]
+        public string Email { get; set; }
+        [Display(Name = "AvatarPath")]
+        public string AvatarPath { get; set; }
+        [Display(Name = "Płeć")]
+        public string Gender { get; set; }
+        [Display(Name = "Województwo")]
+        public Provinces Province { get; set; }
+        [Display(Name = "Przedział wiekowy")]
+        public AgeRange AgeRange { get; set; }
+        [Display(Name = "Wykształcenie")]
+        public Education Education { get; set; }
+        public IList<Questionnaire> UserQuestionnaires { get; set; }
     }
 
     public class ManageLoginsViewModel

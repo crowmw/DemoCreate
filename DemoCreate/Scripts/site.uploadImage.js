@@ -52,8 +52,6 @@ function initAvatarCrop(img) {
         jcrop_api.setOptions({ allowResize: true });
         jcrop_api.setOptions({ aspectRatio: 1 });
 
-        // Maximise initial selection around the centre of the image,
-        // but leave enough space so that the boundaries are easily identified.
         var padding = 10;
         var shortEdge = (boundx < boundy ? boundx : boundy) - padding;
         var longEdge = boundx < boundy ? boundy : boundx;

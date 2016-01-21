@@ -12,19 +12,19 @@ google.load("visualization", "1.0", {
     packages: ["corechart"]
 });
 
-google.setOnLoadCallback(function () {
-    getVote1Data('54d383db-4843-4f6b-a8bd-4e8a6ee9e514');
-});
+//google.setOnLoadCallback(function () {
+//    getVote1Data('54d383db-4843-4f6b-a8bd-4e8a6ee9e514');
+//});
 
 //VOTE1
-var genderChart, ageChart, educationChart, provinceChart;
-function vote1charts(id) {
-    updateVote1Data(id);
-    genderChart.draw(genderVotesData);
-    ageChart.draw(ageVotesData);
-    educationChart.draw(educationVotesData);
-    provinceChart.draw(provincesVotesData);
-}
+//var genderChart, ageChart, educationChart, provinceChart;
+//function vote1charts(id) {
+//    updateVote1Data(id);
+//    genderChart.draw(genderVotesData);
+//    ageChart.draw(ageVotesData);
+//    educationChart.draw(educationVotesData);
+//    provinceChart.draw(provincesVotesData);
+//}
 
 function getVote1Data(id) {
     getVote1GenderData(id);
@@ -355,10 +355,9 @@ function drawChart(chartType, containerId, dataTable, options) {
         chart = new google.visualization.BarChart(containerDiv, options);
         provinceChart = chart;
     }
-
     if (chart == false) {
         return false;
     }
-
-    chart.draw(dataTable, main_options);
+    
+    chart.draw(dataTable, options);
 }

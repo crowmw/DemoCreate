@@ -58,9 +58,14 @@ namespace DemoCreate.Controllers
                 return HttpNotFound();
             }
 
+            decimal vote1 = 0;
+            decimal vote2 = 2;
             var suma = questionnaire.Vote1.VotedUsers.Count + questionnaire.Vote2.VotedUsers.Count;
-            var vote1 = (decimal)questionnaire.Vote1.VotedUsers.Count / (decimal)suma * 100;
-            var vote2 = (decimal)questionnaire.Vote2.VotedUsers.Count / (decimal)suma * 100;
+            if (suma != 0)
+            {
+                vote1 = (decimal)questionnaire.Vote1.VotedUsers.Count / (decimal)suma * 100;
+                vote2 = (decimal)questionnaire.Vote2.VotedUsers.Count / (decimal)suma * 100;
+            }
 
             ViewBag.Vote1Procentage = questionnaire.Vote1.VotedUsers.Count + " ( " + decimal.Round(vote1, 1) + "% )";
             ViewBag.Vote2Procentage = questionnaire.Vote2.VotedUsers.Count + " ( " + decimal.Round(vote2, 1) + "% )";
@@ -124,31 +129,21 @@ namespace DemoCreate.Controllers
         {
             try
             {
-                // Calculate dimensions
                 var top = Convert.ToInt32(t.Replace("-", "").Replace("px", ""));
                 var left = Convert.ToInt32(l.Replace("-", "").Replace("px", ""));
-
                 var height = Convert.ToInt32(h.Replace("-", "").Replace("px", ""));
                 var width = Convert.ToInt32(w.Replace("-", "").Replace("px", ""));
-
                 var originHeight = Convert.ToInt32(o.Replace("px", ""));
-
                 var base64Data = Regex.Match(fileData, @"data:image/(?<type>.+?),(?<data>.+)").Groups["data"].Value;
                 byte[] binData = Convert.FromBase64String(base64Data);
                 var type = base64Data.GetType();
-                //var stream = new MemoryStream(binData);
-
-                // Generate unique file name
                 var fileName = Guid.NewGuid().ToString();
                 var serverPath = HttpContext.Server.MapPath(UploadedImagesPath);
                 var filePath = Path.Combine(serverPath, fileName);
                 var img = new WebImage(binData);
-
                 using (var ms = new MemoryStream(binData))
                 {
-                    
                     var res = (double)img.Height / (double)originHeight;
-
                     var ttop = (int)(res * top);
                     var tleft = (int)(res * left);
                     var tbottom = (img.Height - (int)(top * res) - (int)(height * res));
@@ -206,10 +201,16 @@ namespace DemoCreate.Controllers
                 return HttpNotFound();
             }
 
-
+            decimal vote1 = 0;
+            decimal vote2 = 0;
             var suma = questionnaire.Vote1.VotedUsers.Count + questionnaire.Vote2.VotedUsers.Count;
-            var vote1 = (decimal)questionnaire.Vote1.VotedUsers.Count / (decimal)suma * 100;
-            var vote2 = (decimal)questionnaire.Vote2.VotedUsers.Count / (decimal)suma * 100;
+
+            if(suma != 0)
+            {
+                vote1 = (decimal)questionnaire.Vote1.VotedUsers.Count / (decimal)suma * 100;
+                vote2 = (decimal)questionnaire.Vote2.VotedUsers.Count / (decimal)suma * 100;
+            }
+
 
             ViewBag.Vote1Procentage = questionnaire.Vote1.VotedUsers.Count + " ( " + decimal.Round(vote1, 1) + "% )";
             ViewBag.Vote2Procentage = questionnaire.Vote2.VotedUsers.Count + " ( " + decimal.Round(vote2, 1) + "% )";

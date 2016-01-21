@@ -73,8 +73,8 @@
                 <div class="panel-body">
                     <div class="row">
                         <ul class="nav nav-pills nav-justified">
-                            <li><a data-toggle="pill" href="#Vote1" onclick=" vote1charts('@Model.QuestionnaireId.ToString()') ">@Html.DisplayFor(model => model.Vote1.VoteTitle)</a></li>
-                            <li><a data-toggle="pill" href="#Vote1" onclick=" vote2charts('@Model.QuestionnaireId.ToString()') ">@Html.DisplayFor(model => model.Vote2.VoteTitle)</a></li>
+                            <li><a data-toggle="pill" href="#Vote1" onclick=" getVote1Data('@Model.QuestionnaireId.ToString()') ">@Html.DisplayFor(model => model.Vote1.VoteTitle)</a></li>
+                            <li><a data-toggle="pill" href="#Vote1" onclick=" getVote2Data('@Model.QuestionnaireId.ToString()') ">@Html.DisplayFor(model => model.Vote2.VoteTitle)</a></li>
                         </ul>
                             <div id="GenderChart" class="chart"></div>
                             <div id="AgeChart" class="chart"></div>

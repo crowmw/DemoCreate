@@ -61,79 +61,9 @@ namespace DemoCreate
             //   consumerKey: "augFWw8vgnkzE8YBAurFbsK4t",
             //   consumerSecret: "KtAjfvgGU9Yg35QS7lsh6JBVuvRmgXJ2tHvpuDFwb5hB3aHWNI");
 
-            //var facebookAuthenticationOptions = new FacebookAuthenticationOptions()
-            //{
-            //    AppId = "1698660540370782",
-            //    AppSecret = "537b8280853f371d3d24372aea76d28d"
-            //};
-            //facebookAuthenticationOptions.Scope.Add("email");
-            //app.UseFacebookAuthentication(facebookAuthenticationOptions);
-
-            // Facebook : Create New App
-            // https://developers.facebook.com/apps
-
-            //string pub_profil = string.Empty;
-
-            //    var facebookOptions = new FacebookAuthenticationOptions
-            //    {
-            //        AppId = "1698660540370782",
-            //        AppSecret = "537b8280853f371d3d24372aea76d28d",
-            //        Provider = new FacebookAuthenticationProvider
-            //        {
-            //            OnAuthenticated = (context) =>
-            //            {
-            //                //context.Identity.AddClaim(new Claim("urn:facebook:gender", )
-            //                context.Identity.AddClaim(new Claim("urn:facebook:access_token", context.AccessToken, XmlSchemaString, "Facebook"));
-            //                context.Identity.AddClaim(new Claim("urn:facebook:public_profile", pub_profil, XmlSchemaString, "Facebook"));
-            //                foreach (var x in context.User)
-            //                {
-            //                    var claimType = string.Format("urn:facebook:{0}", x.Key);
-            //                    string claimValue = x.Value.ToString();
-            //                    if (!context.Identity.HasClaim(claimType, claimValue))
-            //                        context.Identity.AddClaim(new Claim(claimType, claimValue, XmlSchemaString, "Facebook"));
-
-            //                }
-            //                return Task.FromResult(0);
-            //            }
-            //        }
-            //    };
-            //    facebookOptions.Scope.Add("email");
-            //    facebookOptions.Scope.Add("public_profile");
-            //    app.UseFacebookAuthentication(facebookOptions);
-
             app.UseFacebookAuthentication(
                 appId: "1698660540370782",
                 appSecret: "537b8280853f371d3d24372aea76d28d");
-            //var facebookOptions = new FacebookAuthenticationOptions();
-            //facebookOptions.AppId = "1698660540370782";
-            //facebookOptions.AppSecret = "537b8280853f371d3d24372aea76d28d";
-            //facebookOptions.Scope.Add("public_profile");
-            //facebookOptions.SignInAsAuthenticationType = Microsoft.Owin.Security.AppBuilderSecurityExtensions.GetDefaultSignInAsAuthenticationType(app);
-
-            //facebookOptions.Provider = new FacebookAuthenticationProvider()
-            //{
-            //    OnAuthenticated = async facebookContext =>
-            //    {
-            //        // Save every additional claim we can find in the user
-            //        foreach (JProperty property in facebookContext.User.Children())
-            //        {
-            //            var claimType = string.Format("urn:facebook:{0}", property.Name);
-            //            string claimValue = (string)property.Value;
-            //            if (!facebookContext.Identity.HasClaim(claimType, claimValue))
-            //                facebookContext.Identity.AddClaim(new Claim(claimType, claimValue,
-            //                      "http://www.w3.org/2001/XMLSchema#string", "External"));
-            //        }
-            //    }
-            //};
-
-            //app.UseFacebookAuthentication(facebookOptions);
-
-
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "492773902505-b1egabb9jogkpbpk2ejrdbfi204ei4f8.apps.googleusercontent.com",
-            //    ClientSecret = "kYCszRkYrk5Ir1M590sS-ZLL"
-            //});
         }
     }
 }

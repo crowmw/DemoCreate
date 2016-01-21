@@ -130,6 +130,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\democreate - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\democreate - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -158,6 +160,10 @@
     <Compile Include="Migrations\201512071113325_add_fields_to_user.cs" />
     <Compile Include="Migrations\201512071113325_add_fields_to_user.Designer.cs">
       <DependentUpon>201512071113325_add_fields_to_user.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601211921290_reqTitle.cs" />
+    <Compile Include="Migrations\201601211921290_reqTitle.Designer.cs">
+      <DependentUpon>201601211921290_reqTitle.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AgeRange.cs" />
@@ -190,6 +196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201512071113325_add_fields_to_user.resx">
       <DependentUpon>201512071113325_add_fields_to_user.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601211921290_reqTitle.resx">
+      <DependentUpon>201601211921290_reqTitle.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

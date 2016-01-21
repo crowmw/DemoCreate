@@ -22,8 +22,7 @@
                 @Html.ActionLink("DemoCreate", "Index", "Questionnaire", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                </ul>
+                <ul class="nav navbar-nav"></ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
@@ -31,7 +30,16 @@
     <div class="container body-content">
         @RenderBody()
         <footer class="text-center">
-            <p>&copy; @DateTime.Now.Year - Praca inżynierska DemoCreate</p>
+
+            <p>
+                Politechnika Poznańska Instytut Automatyki i Inżynierii Informatycznej</br>
+                Prototyp aplikacji opracowano w ramach pracy dyplomowej inżynierskiej, oddanej w styczniu 2016 r.</br>
+                Autor: Mateusz Woźniak
+                Tytuł: Aplikacja internetowa do rozrywkowego przeprowadzania ankiet
+                Promotor: dr hab. Tadeusz Pankowski prof. nadzw. PP
+            </p>
+            <img src="~/Content/images/PUTlogo.png" width="100" height="100" />
+
         </footer>
     </div>
 

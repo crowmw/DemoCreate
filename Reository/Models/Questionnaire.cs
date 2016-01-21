@@ -19,6 +19,7 @@ namespace Repository.Models
         public Guid QuestionnaireId { get; set; }
 
         [Display(Name ="Title: ")]
+        [Required]
         public string Title { get; set; }
 
         [Display(Name = "TimeOfCreation: ")]

@@ -202,6 +202,11 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\images\400x400placeholder.gif" />
+    <Content Include="Content\images\Jcrop.gif" />
+    <Content Include="Content\images\loading.gif" />
+    <Content Include="Content\images\PUTlogo.png" />
+    <Content Include="Content\images\viewport_background.gif" />
     <Content Include="Content\jquery.Jcrop.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\uploadImage.css" />
@@ -221,6 +226,9 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="democreate.PublishSettings" />
+    <None Include="Properties\PublishProfiles\democreate - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\democreate - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.1.4-vsdoc.js" />
     <Content Include="Scripts\jquery.ajaxform.js" />
     <Content Include="Scripts\jquery.form.js" />
@@ -247,6 +255,7 @@
     <Content Include="Scripts\site.uploadImage.js" />
     <Content Include="Scripts\site.vote.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="UploadImages\info.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -293,7 +302,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Temp\" />
-    <Folder Include="UploadImages\" />
     <Folder Include="Views\UploadImage\" />
   </ItemGroup>
   <ItemGroup>

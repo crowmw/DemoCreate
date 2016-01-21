@@ -11,6 +11,11 @@ var maxSizeInBytes = maxSizeAllowed * 1024 * 1024;
 var keepUploadBox = false;  // ToDo - Remove if you want to keep the upload box
 var keepCropBox = false;    // ToDo - Remove if you want to keep the crop box
 
+$(document).ready(function () {
+    $("#inputVoteImage2").prop('disabled', true);
+    $("#addButton").prop('disabled', true);
+})
+
 function previewImage(id) {
     voteId = id
     $('#inputVoteImage' + id).addClass('hidden');
@@ -107,6 +112,11 @@ function saveAvatar(id) {
             $('#croppingImage'+id).addClass('hidden');
         } else {
             alert(data.errorMessage)
+        }
+        $("#inputVoteImage2").prop('disabled', false);
+        if(id==2)
+        {
+            $("#addButton").prop('disabled', false);
         }
     }).fail(function (e) {
         alert('Cannot upload avatar at this time');

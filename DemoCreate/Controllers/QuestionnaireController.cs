@@ -214,7 +214,15 @@ namespace DemoCreate.Controllers
 
             ViewBag.Vote1Procentage = questionnaire.Vote1.VotedUsers.Count + " ( " + decimal.Round(vote1, 1) + "% )";
             ViewBag.Vote2Procentage = questionnaire.Vote2.VotedUsers.Count + " ( " + decimal.Round(vote2, 1) + "% )";
-            return View(questionnaire);
+
+            if (User == questionnaire.User || User.IsInRole("Admin"))
+            {
+                return View(questionnaire);
+            }
+            else
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
         }
 
         public ActionResult DeleteConfirmed(Guid id)
